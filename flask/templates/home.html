@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/graphs" method = 'post'>
+<style>
+  h1 {
+  color: yellow;
+  text-align: center;
+  }
+  p {
+  color:white; 
+  height:80;
+  text-align: center;
+  }
+  </style>
+<h1 class='important-paragraph'>This is the Title or something!</h1>
+
+<p class = 'important-paragraph form-inputs'>
+  <label for='region_id'>Region You're In: </label>
+  <select name='region' id='region_id'>
+    {% for each in region_options %}
+      <option value="{{each}}">{{each}}</option>
+    {% endfor %}
+  </select>
+</p>
+
+<p class = 'important-paragraph form-inputs'>
+    <label for='season_id'> What Season is it?: </label>
+    <select name='season' id='season_id'>
+      {% for each in season_options %}
+        <option value="{{each}}">{{each}}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <input type='submit' value='Submit'/>
+  </p>
+</form>
+{% endblock content %}
