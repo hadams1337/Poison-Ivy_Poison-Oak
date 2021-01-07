@@ -7,8 +7,13 @@ from tensorflow.keras.models import Sequential
 from flask import request, redirect
 from werkzeug.utils import secure_filename
 
+UPLOAD_FOLDER = '/static/uploads'
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+
 app = Flask(__name__)
 app.debug = True
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/')
 def hello():
@@ -22,33 +27,33 @@ def home():
 
 
 
-@app.route('/', methods=['POST', "GET"])
+@app.route('/pictures', methods=['POST', "GET"])
 def graphs():
-    region = int(request.form['region']) - 1
-    season = int(request.form['season']) - 1
+    region = request.form['region']
+    season = request.form['season']
 
-      return render_template('home.html', col1=col1+1, col2=col2+1, url=f'./static/images/col{col1}col{col2}.png', image=image)
+    return render_template('pictures.html', season_id=season_id, region_id=region_id, url=f'./static/images/region{region_id}season{season_id}.png', image=image)
 
-@app.route('/predict', methods=['POST', 'GET'])
-
+@app.route('/uploader', methods=['POST', 'GET'])
 def upload_image():
+    # check if the post request has the file part
+    if 'file' not in request.files:
+        flash('No file part')
+        return redirect(request.url)
+    file = request.files['file']
+    # if user does not select file, browser also
+    # submit a empty part without filename
+    if file.filename == '':
+        flash('No selected file')
+        return redirect(request.url)
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return render_template("uploader.html")
 
-    if request.method == "POST":
-
-        if request.files:
-
-            image = request.files["image"]
-
-            print(image)
-
-            return redirect(request.url)
-
-
-    return render_template("public/upload_image.html")
-
-
+@app.route('/results', methods=['POST', 'GET'])
 def results():
-    test_data = np.array([sepal_length, sepal_width, petal_length, petal_width]).reshape(1, -1)
+    test_data = upload_image()
 
     # Load model
     filename = 'mymodel_43/'
