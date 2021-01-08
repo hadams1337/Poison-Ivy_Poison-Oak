@@ -7,9 +7,10 @@ from tensorflow.keras.models import Sequential
 from flask import request, redirect
 from werkzeug.utils import secure_filename
 import os
-import io
+from skimage import io
+from skimage.transform import resize, rotate
 
-UPLOAD_FOLDER = '/static/uploads'
+UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
@@ -45,18 +46,18 @@ def uploader():
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('No file part')
-        return render_template('uploader.html')
+        return render_template('/uploader.html')
     file = request.files['file']
     # if user does not select file, browser also
     # submit a empty part without filename
     if file.filename == '':
         flash('No selected file')
-        return render_template('uploader.html')
+        return render_template('/uploader.html')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         test_data = io.imread('static/uploads/'+filename)
-
+        resize(test_data,(300,200,3))
         # Load model
         model_name = 'mymodel_43/'
         model = tf.keras.models.load_model('models/'+model_name)
@@ -69,9 +70,9 @@ def uploader():
         # Index target names at prediction value
         for name in target_names[prediction]:
             predicted_name = name
-    return render_template('results.html',filename=filename)
+        return render_template('/uploader.html',filename=filename)
   else:
-    return render_template('uploader.html')
+    return render_template('/uploader.html')
 
 @app.route('/results', methods=['POST'])
 def results():

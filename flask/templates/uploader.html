@@ -2,31 +2,39 @@
 
 {% block title %}Upload{% endblock %}
 
-{% block main %}
+{% block content %}
+<style>
+  h1 {
+  color: yellow;
+  text-align: center;
+  }
+  p {
+  color:white; 
+  height:80;
+  text-align: center;
+  }
+  </style>
+<div class = 'content-section'>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
+  <form action="/uploader" method="POST" enctype="multipart/form-data">
+  <h1>Upload an image</h1>
+  <hr>
 
-      <h1>Upload an image</h1>
-      <hr>
 
-      <form action="/uploader" method="POST" enctype="multipart/form-data">
 
-        <div class="form-group">
-          <label>Select image</label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" name="image" id="image">
-            <label class="custom-file-label" for="image">Select image...</label>
-          </div>
-        </div>
+    <!-- <div class="form-group">
+      <label>Select image</label>
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" name="image" id="file">
+        <label class="custom-file-label" for="image">Submit image...</label>
+      </div>
+    </div> -->
+          <input class="btn btn-lg" type=file name=file>
+          <input class="btn-default btn-lg" type=submit value=Upload>
+    <!-- <input type="submit" class="btn btn-primary" value=Upload> -->
 
-        <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
 
-      </form>
-
-    </div>
-  </div>
 </div>
 
-{% endblock %}
+{% endblock content%}
