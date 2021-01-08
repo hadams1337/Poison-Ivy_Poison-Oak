@@ -7,6 +7,7 @@ from tensorflow.keras.models import Sequential
 from flask import request, redirect
 from werkzeug.utils import secure_filename
 import os
+import io
 
 UPLOAD_FOLDER = '/static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -38,41 +39,43 @@ def pictures():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
 
-@app.route('/uploader', methods=['POST', 'GET'])
-def upload_image():
+@app.route('/uploader', methods=['POST','GET'])
+def uploader():
+  if request.method == 'POST':
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('No file part')
-        return redirect(request.url)
+        return render_template('uploader.html')
     file = request.files['file']
     # if user does not select file, browser also
     # submit a empty part without filename
     if file.filename == '':
         flash('No selected file')
-        return redirect(request.url)
+        return render_template('uploader.html')
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return render_template("results.html")
+        test_data = io.imread('static/uploads/'+filename)
 
-@app.route('/results', methods=['POST', 'GET'])
+        # Load model
+        model_name = 'mymodel_43/'
+        model = tf.keras.models.load_model('models/'+model_name)
+
+        # Predict on user input
+        prediction = np.argmax(model.predict(test_data))
+
+        target_names=['Benign Plants', 'Poison Ivy', 'Poison Oak']
+
+        # Index target names at prediction value
+        for name in target_names[prediction]:
+            predicted_name = name
+    return render_template('results.html',filename=filename)
+  else:
+    return render_template('uploader.html')
+
+@app.route('/results', methods=['POST'])
 def results():
-    test_data = upload_image()
-
-    # Load model
-    filename = 'mymodel_43/'
-    model = tf.keras.models.load_model('models/'+filename)
-
-    # Predict on user input
-    prediction = np.argmax(model.predict(test_data))
-
-    target_names=['Benign Plants', 'Poison Ivy', 'Poison Oak']
-
-    # Index target names at prediction value
-    for name in target_names[prediction]:
-        predicted_name = name
-
-    return render_template('predict.html', prediction=predicted_name, image=f'./static/images/iris.png')
+    return render_template('results.html', prediction=predicted_name, image=f'./static/uploads/'+filename)
 
 if __name__ == '__main__':
   app.run()
