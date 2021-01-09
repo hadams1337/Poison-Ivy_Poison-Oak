@@ -3,3 +3,5 @@ plants/*
 my_logs/*
 flask/models/*
 run_*/*
+flask/static/uploads/*
+logs/*

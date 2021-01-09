@@ -25,8 +25,8 @@ def allowed_file(filename):
 
 @app.route('/')
 def home():
-  region_options = ['East', 'South', 'Midwest', 'West', 'Pacific Coast', 'Desert']
-  season_options = ['Spring', 'Summer', 'Fall', 'Winter']
+  region_options = ['east', 'south', 'midwest', 'west', 'pacific', 'desert']
+  season_options = ['spring', 'summer', 'fall', 'winter']
   return render_template('home.html', region_options=region_options, season_options=season_options)
 
 
@@ -34,7 +34,7 @@ def home():
 def pictures():
     region_id = request.form['region']
     season_id = request.form['season']
-    return render_template('pictures.html', season_id=season_id, region_id=region_id, url=f'./static/images/region{region_id}season{season_id}.png', image=image)
+    return render_template('pictures.html', season_id=season_id, region_id=region_id, url=f'./static/{season_id}/{region_id}/14.jpeg')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
@@ -64,7 +64,7 @@ def uploader():
         # Predict on user input
         #return f"{model.predict(np.array(test_data).reshape(1,300,200,3)).flatten()}"
         prediction = model.predict(img_array)
-        score = np.max(tf.nn.softmax(prediction[0]))*100
+        score = np.round(np.max(tf.nn.softmax(prediction[0]))*100)
         target_names=['Benign Plants', 'Poison Ivy', 'Poison Oak']
 
         # Index target names at prediction values
