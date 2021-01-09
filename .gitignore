@@ -2,3 +2,4 @@ models/*
 plants/*
 logs/*
 flask/models/*
+run_*/*

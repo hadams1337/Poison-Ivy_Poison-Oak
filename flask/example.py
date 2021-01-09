@@ -57,25 +57,26 @@ def uploader():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         test_data = io.imread('static/uploads/'+filename)
-        resize(test_data,(300,200,3))
+        test_data=resize(test_data,(300,200,3))
         # Load model
         model_name = 'mymodel_43/'
         model = tf.keras.models.load_model('models/'+model_name)
 
         # Predict on user input
-        prediction = np.argmax(model.predict(test_data))
+        #return f"{model.predict(np.array(test_data).reshape(1,300,200,3)).flatten()}"
+        prediction = np.argmax(model.predict(np.array(test_data).reshape(1,300,200,3)).flatten())
 
         target_names=['Benign Plants', 'Poison Ivy', 'Poison Oak']
 
-        # Index target names at prediction value
-        for name in target_names[prediction]:
-            predicted_name = name
-        return render_template('/uploader.html',filename=filename)
+        # Index target names at prediction values
+        predicted_name = target_names[prediction]
+        return results(predicted_name, filename)
+        #return render_template('/results.html', prediction=predicted_name)
   else:
     return render_template('/uploader.html')
 
-@app.route('/results', methods=['POST'])
-def results():
+#@app.route('/results', methods=['POST'])
+def results(predicted_name, filename):
     return render_template('results.html', prediction=predicted_name, image=f'./static/uploads/'+filename)
 
 if __name__ == '__main__':
