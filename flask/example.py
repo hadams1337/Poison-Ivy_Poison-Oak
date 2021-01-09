@@ -56,28 +56,27 @@ def uploader():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        test_data = io.imread('static/uploads/'+filename)
-        test_data=resize(test_data,(300,200,3))
+        img = keras.preprocessing.image.load_img('static/uploads/'+filename , target_size=(300, 200))
+        img_array = keras.preprocessing.image.img_to_array(img)
+        img_array = tf.expand_dims(img_array, 0)
         # Load model
-        model_name = 'mymodel_43/'
-        model = tf.keras.models.load_model('models/'+model_name)
-
+        model = tf.keras.models.load_model('models/')
         # Predict on user input
         #return f"{model.predict(np.array(test_data).reshape(1,300,200,3)).flatten()}"
-        prediction = np.argmax(model.predict(np.array(test_data).reshape(1,300,200,3)).flatten())
-
+        prediction = model.predict(img_array)
+        score = np.max(tf.nn.softmax(prediction[0]))*100
         target_names=['Benign Plants', 'Poison Ivy', 'Poison Oak']
 
         # Index target names at prediction values
-        predicted_name = target_names[prediction]
-        return results(predicted_name, filename)
-        #return render_template('/results.html', prediction=predicted_name)
+        predicted_name = target_names[np.argmax(prediction[0])]
+        return results(predicted_name, filename, score)
+        #return render_template('/results.html', prediction=predicted_name, score=score)
   else:
     return render_template('/uploader.html')
 
 #@app.route('/results', methods=['POST'])
-def results(predicted_name, filename):
-    return render_template('results.html', prediction=predicted_name, image=f'./static/uploads/'+filename)
+def results(predicted_name, filename, score):
+    return render_template('results.html', prediction=predicted_name, image=f'./static/uploads/'+filename, score=score)
 
 if __name__ == '__main__':
   app.run()
