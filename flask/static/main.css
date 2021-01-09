@@ -1,17 +1,25 @@
+html{
+  height: 100%;
+}
 body {
   background: #fafafa;
   color: #333333;
   margin-top: 5rem;
-  background-image: url('https://www.thespruce.com/thmb/msdd3U1jUdX8-5jruoyoH0ahDy8=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-identify-poison-ivy-in-all-the-seasons-4125544-02-4f3215df44d84d8b964ec44801ee21d5.jpg');
+  background-image: url('http://www.dreamscapeslandscaping.com/app/webroot/img/Image/poison%20ivy(4).jpg');
   height: 100%;
   position: relative;
-  opacity: 0.65;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;}
+  background-size: cover;
+  overflow: hidden;
+}
+p, div {
+  font-family: 'Prompt', sans-serif;
+}
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+  font-family: 'Prompt', sans-serif;
 }
 
 .bg-steel {
@@ -29,7 +37,9 @@ h1, h2, h3, h4, h5, h6 {
 .site-header .navbar-nav .nav-link.active {
   font-weight: 500;
 }
-
+.reset-button {
+  margin-top: 10px;
+}
 
 .content-section {
   background: #28a7458f;
