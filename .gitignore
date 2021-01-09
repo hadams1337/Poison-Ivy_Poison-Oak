@@ -1,5 +1,5 @@
 models/*
 plants/*
-logs/*
+my_logs/*
 flask/models/*
 run_*/*
