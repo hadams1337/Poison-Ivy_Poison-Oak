@@ -4,7 +4,6 @@ html{
 body {
   background: #fafafa;
   color: #333333;
-  margin-top: 5rem;
   background-image: url('http://www.dreamscapeslandscaping.com/app/webroot/img/Image/poison%20ivy(4).jpg');
   height: 100%;
   position: relative;
@@ -21,7 +20,10 @@ h1, h2, h3, h4, h5, h6 {
   color: #444444;
   font-family: 'Prompt', sans-serif;
 }
-
+.content {
+  width: 100%;
+  text-align: center;
+}
 .bg-steel {
   background-color: #3b6143c1;
 }
@@ -42,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #28a7458f;
+  background: #ced667;;
   padding: 10px 20px;
   border: 1px solid #43754d;
   border-radius: 3px;

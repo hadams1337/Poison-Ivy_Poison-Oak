@@ -3,7 +3,7 @@
 <form action="/pictures" method = 'post'>
 <style>
   h1 {
-  color: yellow;
+  color: rgba(0, 255, 208, 0.995);
   text-align: center;
   }
   p {
@@ -14,7 +14,7 @@
   </style>
 <h1 class='important-paragraph'>Here's what you're looking for!</h1>
 
-<p class = 'important-paragraph form-inputs'>
+<p>
   <label for='region_id'>Region You're In: </label>
   <select name='region' id='region_id'>
     {% for each in region_options %}
@@ -23,7 +23,7 @@
   </select>
 </p>
 
-<p class = 'important-paragraph form-inputs'>
+<p>
     <label for='season_id'> What Season is it?: </label>
     <select name='season' id='season_id'>
       {% for each in season_options %}
