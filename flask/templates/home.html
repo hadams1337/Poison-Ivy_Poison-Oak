@@ -3,14 +3,16 @@
 <form action="/pictures" method = 'post'>
 <style>
   h1 {
-  color: rgba(0, 255, 208, 0.995);
+  color: rgb(247 237 168);
   text-align: center;
+  font-size: 2.5rem;
   }
   p {
-  color:white; 
-  height:80;
+  color:rgb(145 247 186); 
+  height:100;
   text-align: center;
-  }
+  font-size: 1.75rem;
+}
   </style>
 <h1 class='important-paragraph'>Here's what you're looking for!</h1>
 
@@ -32,7 +34,7 @@
     </select>
   </p>
   <p>
-    <input type='submit' value='Submit'/>
+    <input class="reset-button" type='submit' value='Submit'/>
   </p>
 </form>
 {% endblock content %}

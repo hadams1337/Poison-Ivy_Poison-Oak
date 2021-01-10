@@ -4,7 +4,8 @@ html{
 body {
   background: #fafafa;
   color: #333333;
-  background-image: url('http://www.dreamscapeslandscaping.com/app/webroot/img/Image/poison%20ivy(4).jpg');
+  background-image: url(https://post.healthline.com/wp-content/uploads/2018/12/Poison_Ivy_Leaves-732x549-Thumbnail.jpg);
+  /* background-image: url('http://www.dreamscapeslandscaping.com/app/webroot/img/Image/poison%20ivy(4).jpg'); */
   height: 100%;
   position: relative;
   background-position: center;
@@ -19,10 +20,12 @@ p, div {
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
   font-family: 'Prompt', sans-serif;
+  font-size: 1.25rem;
 }
 .content {
   width: 100%;
   text-align: center;
+  margin-top: 40px
 }
 .bg-steel {
   background-color: #3b6143c1;
@@ -44,11 +47,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #ced667;;
+  background: #bdc932bb;;
   padding: 10px 20px;
   border: 1px solid #43754d;
   border-radius: 3px;
   margin-bottom: 20px;
+  margin-top: 30px
 }
 
 .article-title {

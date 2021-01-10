@@ -2,8 +2,9 @@
 {% block content %}
 <style>
   h1 {
-  color: yellow;
+  color: #e3f12b;
   text-align: center;
+  font-size: 1.75rem;
   }
   p {
   color:white; 
@@ -22,6 +23,6 @@
 <img src="{{ image }}"/>
 
 <form action="{{url_for('uploader')}}">
-  <input type="submit" value="Predict again" />
+  <input class="reset-button" type="submit" value="Predict again" />
   </form>
 {% endblock content %}
