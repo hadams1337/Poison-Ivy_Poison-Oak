@@ -34,7 +34,7 @@ def home():
 def pictures():
     region_id = request.form['region']
     season_id = request.form['season']
-    picture=os.listdir('./static/'+season_id+'/'+region_id)[1]
+    picture=os.listdir('./static/'+season_id+'/'+region_id)[-1]
     return render_template('pictures.html', season_id=season_id, region_id=region_id, url=f'./static/{season_id}/{region_id}/{picture}')
 
 @app.route('/uploads/<filename>')
