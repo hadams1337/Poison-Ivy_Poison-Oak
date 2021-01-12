@@ -5,9 +5,14 @@
 {% block content %}
 <style>
   h1 {
-  color: #193521;
+  color: #f0f4a8;
   text-align: center;
   font-size: 2.25rem;
+}
+h2 {
+  color: #f9e2b3;
+  text-align: center;
+  font-size: 1.75rem;
 }
   p {
   color:white; 
@@ -15,26 +20,24 @@
   text-align: center;
   }
   </style>
+<div>
+  <h1 class='explanation-paragrah'>You can upload a picture of a plant and I'll let you know if it's poison ivy or poison oak.</h1>
+</div>
+
 <div class = 'content-section'>
 
   <form action="/uploader" method="POST" enctype="multipart/form-data">
   <h1>Upload an image</h1>
   <hr>
 
-
-
-     <!-- <div class="form-group">
-      <label>Select image</label>
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" name="file" id="file">
-        <label class="custom-file-label" for="file">Submit image...</label>
-      </div> -->
           <input class="btn btn-lg" type=file name=file>
           <input class="btn-default btn-lg" type=submit value=Upload>
-    <!-- <input type="submit" class="btn btn-primary" value=Upload>
 
   </form>
 
 </div>
-
+<div>
+  <h2 class='explanation-paragrah'>This doesn't work for pictures of plants with no leaves.</h2>
+</div>
+ -->
 {% endblock content%}
