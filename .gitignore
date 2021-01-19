@@ -5,3 +5,5 @@ flask/models/*
 run_*/*
 flask/static/uploads/*
 logs/*
+.DS_Store
+.ipynb_checkpoints
