@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 import os
 from skimage import io
 from skimage.transform import resize, rotate
+import pandas as pd
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -71,7 +72,6 @@ def uploader():
         # Index target names at prediction values
         predicted_name = target_names[np.argmax(prediction[0])]
         return results(predicted_name, filename, score)
-        #return render_template('/results.html', prediction=predicted_name, score=score)
   else:
     return render_template('/uploader.html')
 
