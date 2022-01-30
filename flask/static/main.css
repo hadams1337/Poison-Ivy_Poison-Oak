@@ -20,6 +20,11 @@ p, div {
 h1, h2, h3, h4, h5, h6 {
   color: #d47f35;
   font-family: 'Prompt', sans-serif;
+  font-size: 2 rem;
+}
+.important-points {
+  color: #f3f1d6;
+  font-family: 'Prompt', sans-serif;
   font-size: 1.5rem;
 }
 .content {
